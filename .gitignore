@@ -1,0 +1,17 @@
+# すべてのファイルを無視
+*
+
+# directoryの無視を解除
+!/
+!/srcs
+!/srcs/requirements
+!/srcs/requirements/bonus
+!/srcs/requirements/mariadb
+!/srcs/requirements/nginx
+!/srcs/requirements/tools
+!/srcs/requirements/wordpress
+
+# fileの無視を解除
+!/.gitignore
+!/Makefile
+!/srcs/*
