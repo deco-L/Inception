@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: requirements/nginx
+    container_name: inception_nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./web:/var/www/html
+    # depends_on:
+    #   - wordpress
+    #   - mariadb
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: inception_wordpress
+    volumes:
+      - ./web:/var/www/html
+    # depends_on:
+    #   - mariadb
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: inception_mariadb

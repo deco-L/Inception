@@ -7,11 +7,23 @@
 !/srcs/requirements
 !/srcs/requirements/bonus
 !/srcs/requirements/mariadb
+!/srcs/requirements/mariadb/conf
 !/srcs/requirements/nginx
+!/srcs/requirements/nginx/conf
 !/srcs/requirements/tools
 !/srcs/requirements/wordpress
+!/srcs/requirements/wordpress/conf
+!/web
+!/secrets
 
 # fileの無視を解除
 !/.gitignore
 !/Makefile
 !/srcs/*
+!/**/Dockerfile
+!/srcs/requirements/mariadb/conf/*.cnf
+!/srcs/requirements/mariadb/*.sql
+!/srcs/requirements/nginx/conf/default
+!/srcs/requirements/wordpress/conf/www.conf
+!/srcs/requirements/wordpress/*.sh
+!/secrets/*.txt
