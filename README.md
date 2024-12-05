@@ -19,5 +19,5 @@
 
 [Debian stable version](https://www.debian.org/releases/stable/)  
 [nginx stable version in debian:bookworm](https://packages.debian.org/search?keywords=nginx)  
-[php stable version in debian:bookworm](https://wiki.debian.org/PHP)  
+[php stable version in debian:bookworm](https://packages.debian.org/search?keywords=php)  
 [mariadb stable version in debian:bookworm](https://packages.debian.org/search?keywords=mariadb-server)
