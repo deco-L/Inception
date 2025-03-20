@@ -2,35 +2,88 @@ version: "3.8"
 
 services:
   nginx:
-    build: requirements/nginx
+    build:
+      context: requirements/nginx
+      args:
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_nginx
     ports:
-      - 80:80
+      - 443:443
     volumes:
-      - ./web:/var/www/html
+      - web:/var/www/html
+    env_file:
+      - .env
+    secrets:
+      - ssl_crt
+      - ssl_key
     networks:
-      inception:
+      - inception
     depends_on:
       - wordpress
       - mariadb
 
   wordpress:
-    build: requirements/wordpress
+    build:
+      context: requirements/wordpress
+      args:
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_wordpress
     volumes:
-      - ./web:/var/www/html
+      - web:/var/www/html
+    env_file:
+      - .env
+    secrets:
+      - db_admin_password
+      - db_user_password
     networks:
-      inception:
+      - inception
     depends_on:
       - mariadb
 
   mariadb:
-    build: requirements/mariadb
+    build:
+      context: requirements/mariadb
+      args:
+        HTTP_PROXY: ${HTTP_PROXY}
+        HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_mariadb
     volumes:
-      - ./database:/var/lib/mysql
+      - database:/var/lib/mysql
+    env_file:
+      - .env
+    secrets:
+      - db_admin_password
+      - db_user_password
     networks:
-      inception:
+      - inception
 
 networks:
   inception:
+
+secrets:
+  ssl_crt:
+    file: ./secrets/csakamot.42.fr.crt
+  ssl_key:
+    file: ./secrets/csakamot.42.fr.key
+  db_admin_password:
+    file: ./secrets/db_admin_password.txt
+  db_user_password:
+    file: ./secrets/db_user_password.txt
+
+volumes:
+  web:
+    name: web
+    driver: local
+    driver_opts:
+      type: none
+      device: ${HOME}/data/web
+      o: bind
+  database:
+    name: database
+    driver: local
+    driver_opts:
+      type: none
+      device: ${HOME}/data/database
+      o: bind
