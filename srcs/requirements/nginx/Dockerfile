@@ -8,8 +8,8 @@ ENV http_proxy=${HTTP_PROXY}
 ENV HTTPS_PROXY=${HTTPS_PROXY}
 ENV https_proxy=${HTTPS_PROXY}
 
-RUN apt update && \
-  apt install -y nginx
+RUN apt-get update && \
+  apt-get install -y nginx
 
 COPY ./conf/default /etc/nginx/sites-available/.
 CMD ["nginx", "-g", "daemon off;"]

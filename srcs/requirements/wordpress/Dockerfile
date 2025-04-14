@@ -8,10 +8,10 @@ ENV http_proxy=${HTTP_PROXY}
 ENV HTTPS_PROXY=${HTTPS_PROXY}
 ENV https_proxy=${HTTPS_PROXY}
 
-RUN apt update && \
-apt install -y php-fpm \
-php-mysqli \
-curl
+RUN apt-get update && \
+    apt-get install -y php-fpm \
+    php-mysqli \
+    curl
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
 WORKDIR /app
