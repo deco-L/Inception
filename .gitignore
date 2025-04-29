@@ -13,7 +13,6 @@
 !/srcs/requirements/tools
 !/srcs/requirements/wordpress
 !/srcs/requirements/wordpress/conf
-!/web
 !/secrets
 
 # fileの無視を解除
@@ -21,7 +20,10 @@
 !/Makefile
 !/srcs/*
 !/**/Dockerfile
+!/**/docker-entrypoint.sh
+!/**/healthcheck.sh
 !/srcs/requirements/mariadb/conf/*.cnf
+!/srcs/requirements/mariadb/*.sh
 !/srcs/requirements/mariadb/*.sql
 !/srcs/requirements/nginx/conf/default
 !/srcs/requirements/wordpress/conf/www.conf
