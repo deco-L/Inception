@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:stable
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY

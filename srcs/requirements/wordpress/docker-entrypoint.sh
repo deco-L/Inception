@@ -38,6 +38,10 @@ install_wp_cli() {
 }
 
 initialize_wordpress() {
+  if [ -f /var/www/html/wp-config.php ]; then
+    echo "WordPress is already installed. Skipping installation."
+    return
+  fi
   ./wp-cli.phar core download --allow-root
   ./wp-cli.phar config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_USER_PASS} --dbhost=inception_mariadb --allow-root
   ./wp-cli.phar core install --url=localhost --title=${WP_TITLE} --admin_user=${WP_ADMIN} --admin_password=${WP_ADMIN_PASS} --admin_email=${WP_ADMIN_EMAIL} --allow-root

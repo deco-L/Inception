@@ -27,8 +27,15 @@ initialize_db() {
 
 start_mysqld_no_network() {
   mysqld --socket=/run/mysqld/mysqld.sock &
+  max_attempts=10
+  attempts=0
   until mysqladmin ping --socket=/run/mysqld/mysqld.sock --silent; do
-    sleep 1
+      sleep 1
+      attempts=$((attempts + 1))
+      if [ $attempts -ge $max_attempts ]; then
+          echo "MySQL server is not responding after $max_attempts attempts."
+          exit 1
+      fi
   done
 }
 
