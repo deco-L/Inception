@@ -8,13 +8,17 @@ ENV http_proxy=${HTTP_PROXY}
 ENV HTTPS_PROXY=${HTTPS_PROXY}
 ENV https_proxy=${HTTPS_PROXY}
 
-RUN apt-get update && \
+RUN set -eux; \
+    apt-get update && \
     apt-get install -y php-fpm \
     php-mysqli \
     curl
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
+COPY ./docker-entrypoint.sh /usr/local/bin/
+
 WORKDIR /app
-COPY ./setup.sh .
-RUN chmod +x ./setup.sh
-CMD ["./setup.sh"]
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+CMD ["docker-entrypoint.sh"]
