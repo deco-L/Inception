@@ -8,6 +8,7 @@ services:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_nginx
+    restart: on-failure
     ports:
       - 443:443
     volumes:
@@ -30,6 +31,7 @@ services:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_wordpress
+    restart: on-failure
     volumes:
       - web:/var/www/html
     env_file:
@@ -49,11 +51,15 @@ services:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
     container_name: inception_mariadb
+    restart: on-failure
     volumes:
       - database:/var/lib/mysql
     env_file:
       - .env
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
     secrets:
+      - db_password
       - db_admin_password
       - db_user_password
     networks:
@@ -67,6 +73,8 @@ secrets:
     file: ./secrets/csakamot.42.fr.crt
   ssl_key:
     file: ./secrets/csakamot.42.fr.key
+  db_password:
+    file: ./secrets/db_password.txt
   db_admin_password:
     file: ./secrets/db_admin_password.txt
   db_user_password:
