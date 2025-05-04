@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:oldstable
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
@@ -14,8 +14,10 @@ RUN set -eux; \
     php-mysqli \
     curl
 
-COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./docker-entrypoint.sh /usr/local/bin/
+
+RUN mkdir -p /run/php
 
 WORKDIR /app
 
