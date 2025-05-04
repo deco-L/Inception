@@ -5,6 +5,7 @@ services:
       args:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
+    image: nginx:inception
     container_name: inception_nginx
     restart: on-failure
     ports:
@@ -28,6 +29,7 @@ services:
       args:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
+    image: wordpress:inception
     container_name: inception_wordpress
     restart: on-failure
     volumes:
@@ -48,6 +50,7 @@ services:
       args:
         HTTP_PROXY: ${HTTP_PROXY}
         HTTPS_PROXY: ${HTTPS_PROXY}
+    image: mariadb:inception
     container_name: inception_mariadb
     restart: on-failure
     volumes:
@@ -85,12 +88,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ${HOME}/data/web
+      device: /home/${USER}/data/web
       o: bind
   database:
     name: database
     driver: local
     driver_opts:
       type: none
-      device: ${HOME}/data/database
+      device: /home/${USER}/data/database
       o: bind

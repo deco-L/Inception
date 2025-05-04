@@ -14,7 +14,7 @@ proxy:
 	@sh ${SRCDIR}/proxySetting.sh
 
 up:
-	mkdir -p ${HOME}/data/web ${HOME}/data/database && \
+	mkdir -p /home/${USER}/data/web /home/${USER}/data/database && \
 	cd ${SRCDIR} && docker compose up -d
 
 down:
